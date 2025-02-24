@@ -72,13 +72,19 @@ function Card(props) {
 					<Modal
 						modalClassName="modal-edit"
 						modalIsOpen={editMode}
-						onCancel={() => (setEditMode(false), setIsMenuExpanded(false))}
+						onCancel={() => {
+							setEditMode(false)
+							setIsMenuExpanded(false)
+						}}
 						description={
 							<>
 								<FormCard
 									id={cardId}
 									content={props.content}
-									onSubmitFunction={() => (setEditMode(false), setIsMenuExpanded(false))}
+									onSubmitFunction={() => {
+										setEditMode(false)
+										setIsMenuExpanded(false)
+									}}
 								/>
 							</>
 						}
@@ -98,7 +104,10 @@ function Card(props) {
 						buttonClass={'btn-danger'}
 						onConfirm={handleDelete}
 						modalIsOpen={deleteMode}
-						onCancel={() => (setDeleteMode(false), setIsMenuExpanded(false))}
+						onCancel={() => {
+							setDeleteMode(false)
+							setIsMenuExpanded(false)
+						}}
 					/>
 				</ModalProvider>
 			) : null}
