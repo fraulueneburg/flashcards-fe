@@ -1,0 +1,17 @@
+.tag-wrapper {
+	background-color: var(--pico-primary-background);
+	border-radius: var(--pico-border-radius);
+	color: var(--pico-primary-inverse);
+	padding: calc(var(--pico-nav-link-spacing-vertical) - var(--pico-border-width) * 2) var(--pico-nav-link-spacing-horizontal);
+
+	+ .tag-wrapper {
+		margin-left: 0.5rem;
+	}
+
+	button {
+		background-color: transparent;
+		border: none;
+		margin-left: 0.5rem;
+		padding: 0;
+	}
+}

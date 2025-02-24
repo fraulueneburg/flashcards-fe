@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import '@picocss/pico/css/pico.min.css'
+import './scss/styles.scss'
+
+import { Routes, Route } from 'react-router-dom'
+import Layout from './pages/Layout'
+import { CardsContextWrapper } from './context/cards.context'
+
+import Start from './pages/Start'
+import AllCards from './pages/AllCards'
+import Practice from './pages/Practice'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<>
+				<Routes>
+					<Route path="/" element={<Layout />}>
+						<Route path="/" element={<Start />}></Route>
+						{/* <Route
+							path="/auth/profile"
+							element={
+								<PrivatePage>
+									<UserSettings />
+								</PrivatePage>
+							}
+						/>
+						<Route path="/profile-deleted" element={<ProfileDeleted />}></Route> */}
+						<Route
+							path="/all-cards"
+							element={
+								<CardsContextWrapper>
+									<AllCards />
+								</CardsContextWrapper>
+							}
+						/>
+						<Route
+							path="/practice"
+							element={
+								<CardsContextWrapper>
+									<Practice />
+								</CardsContextWrapper>
+							}
+						/>
+					</Route>
+				</Routes>
+			</>
+		</>
+	)
 }
 
-export default App;
+export default App

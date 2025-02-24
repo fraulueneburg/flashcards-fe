@@ -1,0 +1,25 @@
+legend {
+	font-size: 1rem;
+}
+
+input[type='text']:has(+ datalist + small) {
+	margin-bottom: 0;
+}
+
+textarea {
+	min-height: 7lh;
+}
+
+ul.suggestions {
+	background-color: var(--pico-form-element-background-color);
+	border: 1px solid var(--pico-form-element-border-color);
+	border-radius: var(--pico-border-radius);
+	color: var(--pico-form-element-color);
+	margin: 0;
+	padding: 0.5rem;
+
+	li {
+		list-style: none;
+		margin: 0;
+	}
+}

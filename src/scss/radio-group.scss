@@ -1,0 +1,272 @@
+.radio-group {
+	--field-height: 54px;
+	border: 1px solid var(--form-element-border-color);
+	border-radius: var(--border-radius);
+	display: flex;
+	font-size: 0.875rem;
+	line-height: 1.2;
+	justify-content: space-between;
+	position: relative;
+	height: var(--field-height);
+	width: min-content;
+
+	&:focus-within {
+		box-shadow: 0 0 0 var(--outline-width) var(--form-element-focus-color);
+		border-color: var(--form-element-active-border-color);
+	}
+
+	> *:not(.hidden, .sr-only) {
+		display: inline-block;
+	}
+
+	.btn-toggle-list {
+		background-color: var(--form-element-background-color);
+		border: none;
+		box-shadow: none;
+		padding: 0;
+		width: 2rem;
+
+		&:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		svg {
+			height: 20px;
+			width: 20px;
+		}
+	}
+
+	[aria-expanded='true'] + .dropdown-list {
+		display: flex;
+	}
+
+	.dropdown-list {
+		background-color: var(--card-background-color);
+		border-radius: var(--border-radius);
+		display: none;
+		filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.8));
+		flex-direction: column;
+		flex-wrap: nowrap;
+		margin-left: -4px;
+		max-height: 16lh;
+		overflow: hidden;
+		position: absolute;
+		top: var(--field-height);
+		width: 425px;
+		z-index: 10;
+
+		.dropdown-list-livesearch {
+			padding: 0.75rem 0.5rem 0.5rem;
+		}
+
+		.dropdown-list-option-list {
+			padding: 0.25rem 0;
+			height: 100%;
+			width: 100%;
+			overflow-y: scroll;
+
+			label {
+				margin: 2px 0.25rem;
+				position: relative;
+
+				input[type='radio'] {
+					border: none;
+					height: 0;
+					position: absolute;
+					left: 1rem;
+					top: 40%;
+					width: 0;
+					z-index: -1;
+				}
+
+				&:hover {
+					background-color: var(--);
+				}
+			}
+		}
+	}
+
+	.checked .dropdown-list-option-content {
+		background-color: var(--primary-focus);
+		border-color: var(--primary);
+	}
+
+	.dropdown-list-option-content {
+		align-items: center;
+		background-color: var(--card-background-color);
+		border: 2px solid transparent;
+		border-radius: var(--border-radius);
+		color: var(--color);
+		display: grid;
+		gap: 0.5rem;
+		grid-template-columns: min-content 1fr min-content;
+		margin: 0;
+		padding: 0.25rem 0.5rem;
+		width: 100%;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: var(--primary-focus);
+		}
+
+		small {
+			opacity: 0.5;
+		}
+
+		.fi {
+			&.fis {
+				border-radius: 50%;
+				overflow: hidden;
+				height: 2em;
+				width: 2em;
+			}
+		}
+
+		.fi-no-flag {
+			background-color: var(--color-blue);
+			display: grid;
+			place-items: center;
+
+			svg {
+				stroke: var(--background-color);
+				position: absolute;
+			}
+		}
+
+		.left {
+			white-space: nowrap;
+		}
+
+		.right {
+			opacity: 0.5;
+		}
+	}
+
+	> .dropdown-list-option-content {
+		background-color: var(--form-element-background-color);
+	}
+}
+
+.radio-group-color {
+	background-color: transparent;
+	border: none;
+	height: auto;
+	padding: 4px 0;
+
+	label {
+		position: relative;
+		width: 2rem;
+		height: 2rem;
+
+		&:focus-within {
+			.color-option {
+				outline: 2px solid currentColor;
+				outline-offset: 4px;
+			}
+		}
+	}
+
+	input[type='radio'] {
+		margin: 0.5rem;
+	}
+
+	input:checked + .color-option {
+		border: 0.2rem solid rgba(0, 0, 0, 0.2);
+	}
+
+	.btn-toggle-colors {
+		align-items: center;
+		background: transparent none;
+		border: none;
+		display: flex;
+		flex-direction: row;
+		gap: 6px;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		width: min-content;
+
+		.color-option {
+			position: static;
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+			.color-option {
+				outline: 2px solid currentColor;
+				outline-offset: 4px;
+			}
+		}
+
+		svg {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	.color-list {
+		background-color: var(--card-background-color);
+		border-radius: var(--border-radius);
+		filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.8));
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 9px;
+		height: auto;
+		left: auto;
+		margin-top: 0.75rem;
+		overflow: visible;
+		padding: 0.75rem 1rem;
+		right: 0;
+		top: -11rem;
+		width: 380px;
+
+		&:after {
+			background-color: var(--card-background-color);
+			content: '';
+			display: block;
+			height: 16px;
+			margin-left: 12px;
+			position: absolute;
+			top: -4px;
+			transform: rotate(45deg);
+			width: 16px;
+			z-index: -10;
+		}
+	}
+
+	.color-option {
+		background-color: currentColor;
+		border-radius: 50%;
+		display: block;
+		flex: 0 0 2rem;
+		height: 2rem;
+		left: 0;
+		max-height: none;
+		overflow: hidden;
+		position: absolute;
+		text-indent: -9999px;
+		top: 0;
+		width: 2rem;
+		z-index: 1;
+
+		svg {
+			color: white;
+			bottom: 0;
+			height: 70%;
+			left: 0;
+			margin: auto;
+			position: absolute;
+			right: 0;
+			stroke-width: 3px;
+			top: 0;
+			width: 70%;
+		}
+	}
+}

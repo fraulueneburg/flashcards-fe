@@ -1,0 +1,23 @@
+nav ul {
+	gap: 0.5rem;
+
+	&:first-of-type,
+	&:last-of-type {
+		margin: 0;
+	}
+}
+
+:where(nav li)::before {
+	float: none;
+	content: none;
+}
+
+header nav .nav-main {
+	a[aria-current='page'] {
+		background-color: var(--pico-primary-background);
+		color: var(--pico-primary-inverse);
+		padding: calc(var(--pico-nav-link-spacing-vertical) - var(--pico-border-width) * 2)
+			var(--pico-nav-link-spacing-horizontal);
+		text-decoration: none;
+	}
+}

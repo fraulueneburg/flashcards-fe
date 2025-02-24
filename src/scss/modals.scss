@@ -1,0 +1,68 @@
+/*----- DIALOGS -----*/
+
+dialog {
+	> article {
+		max-width: 1200px;
+		position: relative;
+
+		.btn-close {
+			margin: 0 !important;
+			position: absolute;
+			height: 3rem !important;
+			right: 3px;
+			top: 3px;
+			width: 3rem !important;
+		}
+	}
+
+	header,
+	footer {
+		background: transparent none;
+	}
+
+	header {
+		border: none;
+		margin-bottom: 0;
+		padding-top: 1rem;
+		text-align: center;
+		width: calc(100% + var(--block-spacing-horizontal) * 2);
+
+		h1,
+		h2,
+		h3 {
+			margin: 0 auto 0;
+			width: calc(100% - 80px);
+		}
+	}
+
+	section {
+		margin: 0;
+		padding: 1rem 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	img {
+		max-width: 250px;
+		width: auto;
+	}
+
+	footer {
+		border: none;
+		margin-top: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	select {
+		min-width: 210px;
+	}
+
+	form {
+		width: 100%;
+	}
+}

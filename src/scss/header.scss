@@ -1,0 +1,16 @@
+a.logo {
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+header.site-header {
+	background: var(--page-background);
+	background-blend-mode: (var(--page-background-blend-mode));
+	border-bottom: 1px solid var(--pico-form-element-border-color);
+	grid-area: header;
+	position: sticky;
+	top: 0;
+	padding: 0 1rem;
+	width: 100vw;
+	z-index: 20;
+}
