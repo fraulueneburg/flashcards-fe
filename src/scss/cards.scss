@@ -1,6 +1,6 @@
 .flashcard {
 	background-color: transparent;
-	height: 12lh;
+	height: 11lh;
 	margin-bottom: var(--pico-spacing);
 	padding: 0;
 	position: relative;
@@ -53,7 +53,6 @@
 	}
 
 	.content {
-		align-content: center;
 		display: grid;
 		min-height: 100%;
 		overflow-y: scroll;
@@ -61,6 +60,64 @@
 
 		> *:last-child {
 			margin-bottom: 0;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			code,
+			kbd,
+			pre {
+				font-size: 1em;
+			}
+		}
+
+		h1 {
+			--pico-font-size: 1rem;
+		}
+
+		p,
+		ul {
+			font-size: 0.8rem;
+		}
+
+		ul {
+			padding-left: 1rem;
+			text-align: left;
+		}
+
+		code,
+		kbd,
+		pre {
+			font-size: 0.7rem;
+		}
+
+		pre code {
+			font-size: 0.6rem;
+			line-height: 1.5;
+			padding: 0.25rem;
+		}
+	}
+
+	.front .content {
+		align-content: center;
+	}
+
+	.back .content {
+		display: block;
+	}
+
+	&.flipped aside {
+		opacity: 0;
+		transition: opacity 0.5s ease;
+
+		&:hover,
+		&:focus-visible,
+		&:focus-within {
+			opacity: 1;
 		}
 	}
 
@@ -72,6 +129,8 @@
 		top: 0.5rem;
 		right: 0.5rem;
 		z-index: 10;
+		opacity: 1;
+		transition: opacity 0.5s 0.3s ease;
 
 		> button:first-child {
 			&:not(:focus, :focus-visible, :focus-within) {
@@ -141,7 +200,7 @@ ul.list-cards {
 	}
 
 	@media (min-width: 1300px) {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 	}
 
 	> li {
