@@ -12,7 +12,7 @@ import { nanoid } from 'nanoid'
 const FormCard = (props) => {
 	const { id, onSubmitFunction } = props
 	const { content_front = '', content_back = '', collections = [] } = props.content || {}
-	const { setAllCardsArr, allCollectionsArr } = useContext(CardsContext)
+	const { setAllCardsArr, allCollectionsArr, fetchCollectionsData } = useContext(CardsContext)
 
 	const uniqueId = useId()
 	const [filteredCollectionsArr, setFilteredCollectionsArr] = useState(allCollectionsArr)
@@ -79,10 +79,9 @@ const FormCard = (props) => {
 	// filter existing tags
 	// every time a collection is added or removed from card
 	useEffect(() => {
-		console.log('useEffect!')
 		const collectionIds = new Set(formData.collections.map((item) => item._id))
 		setFilteredCollectionsArr(allCollectionsArr.filter((item) => !collectionIds.has(item._id)))
-	}, [formData.collections])
+	}, [formData.collections, allCollectionsArr])
 
 	// Set default color received from the child
 	const handleDropdownInitColor = (initColor) => {
@@ -107,10 +106,6 @@ const FormCard = (props) => {
 				const newCard = response.data
 
 				setAllCardsArr((prevArr) => [newCard, ...prevArr])
-
-				if (newCard.collections) {
-				}
-
 				setFormData({
 					_id: undefined,
 					content_front: '',
@@ -119,15 +114,12 @@ const FormCard = (props) => {
 				})
 			} else {
 				// update existing card
-				console.log('updating card:', formData)
-
 				const cardId = formData._id
 				const updatedCard = await axios.post(`${API_URL}/cards/${cardId}/update`, formData)
 
-				console.log('update response:', updatedCard.data)
-
 				setAllCardsArr((prevCards) => prevCards.map((item) => (item._id === cardId ? updatedCard.data : item)))
 			}
+			fetchCollectionsData()
 			onSubmitFunction?.()
 		} catch (err) {
 			console.log('ERROR', err)

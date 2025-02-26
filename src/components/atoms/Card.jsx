@@ -20,8 +20,17 @@ import {
 } from '@phosphor-icons/react'
 
 function Card(props) {
-	const { setAllCardsArr, setFilteredCardsArr } = useContext(CardsContext)
-	const { content_front, content_back, collections } = props.content
+	const { setAllCardsArr, setFilteredCardsArr, fetchCollectionsData, defaultIconWeight } = useContext(CardsContext)
+	const { content_front, content_back } = props.content
+	const collections = props.content.collections.sort(function (a, b) {
+		if (a.name.toLowerCase() < b.name.toLowerCase()) {
+			return -1
+		}
+		if (a.name.toLowerCase() > b.name.toLowerCase()) {
+			return 1
+		}
+		return 0
+	})
 	const md = new MarkdownIt()
 	const cardId = props.id || undefined
 	const uniqueId = useId()
@@ -42,6 +51,7 @@ function Card(props) {
 			const filterId = cardId
 			setAllCardsArr((prevCards) => prevCards.filter((e) => e._id !== filterId))
 			setFilteredCardsArr((prevCards) => prevCards.filter((e) => e._id !== filterId))
+			fetchCollectionsData()
 			setDeleteMode(false)
 		} catch (err) {
 			console.log('ERROR', err)
@@ -137,24 +147,24 @@ function Card(props) {
 						aria-expanded={isMenuExpanded}
 						aria-controls={`menu-${uniqueId}`}
 						onClick={() => setIsMenuExpanded(!isMenuExpanded)}>
-						<IconMore />
+						<IconMore weight="bold" />
 					</button>
 					<nav id={`menu-${uniqueId}`}>
 						<ul>
 							<li>
 								<button className="btn-icon" aria-label="delete item">
-									<IconStats />
+									<IconStats weight={defaultIconWeight} />
 								</button>
 							</li>
 							<li>
 								<button onClick={() => setEditMode(!editMode)} className="btn-icon" aria-label="edit item">
-									<IconEdit />
+									<IconEdit weight={defaultIconWeight} />
 								</button>
 							</li>
 
 							<li>
 								<button onClick={() => setDeleteMode(!deleteMode)} className="btn-icon btn-danger" aria-label="delete item">
-									<IconDelete />
+									<IconDelete weight={defaultIconWeight} />
 								</button>
 							</li>
 						</ul>

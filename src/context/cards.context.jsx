@@ -8,6 +8,26 @@ const CardsContextWrapper = ({ children }) => {
 	const [allCardsArr, setAllCardsArr] = useState([])
 	const [filteredCardsArr, setFilteredCardsArr] = useState(allCardsArr)
 	const [allCollectionsArr, setAllCollectionsArr] = useState([])
+	const defaultIconWeight = 'regular'
+
+	const fetchCollectionsData = async () => {
+		try {
+			const resp = await axios.get(`${API_URL}/collections/all`)
+			setAllCollectionsArr(
+				resp.data.sort(function (a, b) {
+					if (a.name.toLowerCase() < b.name.toLowerCase()) {
+						return -1
+					}
+					if (a.name.toLowerCase() > b.name.toLowerCase()) {
+						return 1
+					}
+					return 0
+				})
+			)
+		} catch (err) {
+			console.log('Error while loading cards data:', err)
+		}
+	}
 
 	useEffect(() => {
 		const cardSource = axios.CancelToken.source()
@@ -19,15 +39,6 @@ const CardsContextWrapper = ({ children }) => {
 				const data = resp.data.reverse()
 				setAllCardsArr(data)
 				setFilteredCardsArr(data)
-			} catch (err) {
-				console.log('Error while loading cards data:', err)
-			}
-		}
-
-		const fetchCollectionsData = async () => {
-			try {
-				const resp = await axios.get(`${API_URL}/collections/all`)
-				setAllCollectionsArr(resp.data)
 			} catch (err) {
 				console.log('Error while loading cards data:', err)
 			}
@@ -51,6 +62,8 @@ const CardsContextWrapper = ({ children }) => {
 				setFilteredCardsArr,
 				allCollectionsArr,
 				setAllCollectionsArr,
+				fetchCollectionsData,
+				defaultIconWeight,
 			}}>
 			{children}
 		</CardsContext.Provider>
