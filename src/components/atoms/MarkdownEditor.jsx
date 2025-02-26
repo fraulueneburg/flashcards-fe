@@ -1,7 +1,7 @@
 import MarkdownIt from 'markdown-it'
 import { useId } from 'react'
 
-const MarkdownEditor = ({ label, value, onChange, placeholder }) => {
+const MarkdownEditor = ({ label, value, onChange, placeholder, className }) => {
 	const md = new MarkdownIt()
 	const elementId = useId()
 
@@ -9,7 +9,7 @@ const MarkdownEditor = ({ label, value, onChange, placeholder }) => {
 		<div>
 			<label>Preview {label}</label>
 			<section className="flashcard">
-				<div className="front">
+				<div className={className}>
 					<div className="content" dangerouslySetInnerHTML={{ __html: md.render(value) }} />
 				</div>
 			</section>

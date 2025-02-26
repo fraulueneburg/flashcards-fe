@@ -132,12 +132,14 @@ const FormCard = (props) => {
 				<div className="grid">
 					<MarkdownEditor
 						label="Front"
+						className="front"
 						value={formData.content_front}
 						onChange={(elem) => setFormData({ ...formData, content_front: elem })}
 						placeholder="Enter front content (markdown)"
 					/>
 					<MarkdownEditor
 						label="Back"
+						className="back"
 						value={formData.content_back}
 						onChange={(elem) => setFormData({ ...formData, content_back: elem })}
 						placeholder="Enter back content (markdown)"
