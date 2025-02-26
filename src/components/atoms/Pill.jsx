@@ -25,7 +25,7 @@ export default function Pill(props) {
 					<>
 						<button type="button" onClick={action} aria-label={`add tag ${name}`}>
 							<span className="name">{name}</span>
-							<IconPlus />
+							<IconPlus weight="bold" />
 						</button>
 					</>
 				)

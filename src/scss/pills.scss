@@ -38,12 +38,15 @@
 		border: none;
 		display: grid;
 		height: 100%;
+		line-height: 1.2;
 		margin: 0;
 		padding: 0 0.25rem;
+		text-align: left;
 
 		&:only-child {
-			display: unset;
+			display: flex;
 			font-size: unset;
+			gap: 0.25rem;
 			padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 		}
 
@@ -57,7 +60,6 @@ ul.list-pills {
 	margin-bottom: 1rem;
 }
 
-ul.list-all-collections {
-	justify-content: center;
+ul.list-all-tags {
 	width: 100%;
 }
