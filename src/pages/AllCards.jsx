@@ -11,7 +11,7 @@ import Modal from '../components/organisms/Modal'
 import { CardsContext } from '../context/cards.context'
 
 function AllCards() {
-	const { allCardsArr, filteredCardsArr, setFilteredCardsArr, allCollectionsArr } = useContext(CardsContext)
+	const { allCardsArr, filteredCardsArr, setFilteredCardsArr, allTagsArr } = useContext(CardsContext)
 	const [filterElem, setFilterElem] = useState('')
 	const [addCardMode, setAddCardMode] = useState('')
 	const navigate = useNavigate()
@@ -50,9 +50,9 @@ function AllCards() {
 					<IconPlus />
 				</button>
 			</div>
-			{!allCollectionsArr ? null : (
-				<ul className="list-unstyled list-horizontal list-all-collections">
-					{allCollectionsArr.map((elem, index) => (
+			{!allTagsArr ? null : (
+				<ul className="list-unstyled list-horizontal list-all-tags">
+					{allTagsArr.map((elem, index) => (
 						<li key={elem._id}>
 							<Pill
 								data={elem}

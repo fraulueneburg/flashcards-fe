@@ -7,13 +7,13 @@ const CardsContext = createContext()
 const CardsContextWrapper = ({ children }) => {
 	const [allCardsArr, setAllCardsArr] = useState([])
 	const [filteredCardsArr, setFilteredCardsArr] = useState(allCardsArr)
-	const [allCollectionsArr, setAllCollectionsArr] = useState([])
+	const [allTagsArr, setAllTagsArr] = useState([])
 	const defaultIconWeight = 'regular'
 
-	const fetchCollectionsData = async () => {
+	const fetchTagsData = async () => {
 		try {
-			const resp = await axios.get(`${API_URL}/collections/all`)
-			setAllCollectionsArr(
+			const resp = await axios.get(`${API_URL}/tags/all`)
+			setAllTagsArr(
 				resp.data.sort(function (a, b) {
 					if (a.name.toLowerCase() < b.name.toLowerCase()) {
 						return -1
@@ -31,7 +31,7 @@ const CardsContextWrapper = ({ children }) => {
 
 	useEffect(() => {
 		const cardSource = axios.CancelToken.source()
-		const collectionsSource = axios.CancelToken.source()
+		const tagsSource = axios.CancelToken.source()
 
 		const fetchCardData = async () => {
 			try {
@@ -45,11 +45,11 @@ const CardsContextWrapper = ({ children }) => {
 		}
 
 		fetchCardData()
-		fetchCollectionsData()
+		fetchTagsData()
 
 		return () => {
 			cardSource.cancel('Card data fetch canceled by cleanup function.')
-			collectionsSource.cancel('Collections data fetch canceled by cleanup function.')
+			tagsSource.cancel('Tags data fetch canceled by cleanup function.')
 		}
 	}, [])
 
@@ -60,9 +60,9 @@ const CardsContextWrapper = ({ children }) => {
 				setAllCardsArr,
 				filteredCardsArr,
 				setFilteredCardsArr,
-				allCollectionsArr,
-				setAllCollectionsArr,
-				fetchCollectionsData,
+				allTagsArr,
+				setAllTagsArr,
+				fetchTagsData,
 				defaultIconWeight,
 			}}>
 			{children}

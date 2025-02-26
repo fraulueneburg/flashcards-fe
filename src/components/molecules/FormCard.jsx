@@ -1,5 +1,3 @@
-//import { AuthContext } from '../context/auth.context'
-// import FormTags from './FormTags'
 import { useState, useEffect, useContext, useId } from 'react'
 import { API_URL } from '../../config'
 import { CardsContext } from '../../context/cards.context'
@@ -11,16 +9,16 @@ import { nanoid } from 'nanoid'
 
 const FormCard = (props) => {
 	const { id, onSubmitFunction } = props
-	const { content_front = '', content_back = '', collections = [] } = props.content || {}
-	const { setAllCardsArr, allCollectionsArr, fetchCollectionsData } = useContext(CardsContext)
+	const { content_front = '', content_back = '', tags = [] } = props.content || {}
+	const { setAllCardsArr, allTagsArr, fetchTagsData } = useContext(CardsContext)
 
 	const uniqueId = useId()
-	const [filteredCollectionsArr, setFilteredCollectionsArr] = useState(allCollectionsArr)
+	const [filteredTagsArr, setFilteredTagsArr] = useState(allTagsArr)
 	const [formData, setFormData] = useState({
 		_id: id,
 		content_front: content_front,
 		content_back: content_back,
-		collections: collections,
+		tags: tags,
 	})
 
 	const [newTagName, setNewTagName] = useState('')
@@ -39,8 +37,8 @@ const FormCard = (props) => {
 			const trimmedName = newTagName.trim()
 
 			if (trimmedName.length > 0) {
-				const wasAlreadyAdded = formData.collections.some((elem) => elem.name.toLowerCase() === trimmedName.toLowerCase())
-				const existingTag = filteredCollectionsArr.find((elem) => elem.name.toLowerCase() === trimmedName.toLowerCase())
+				const wasAlreadyAdded = formData.tags.some((elem) => elem.name.toLowerCase() === trimmedName.toLowerCase())
+				const existingTag = filteredTagsArr.find((elem) => elem.name.toLowerCase() === trimmedName.toLowerCase())
 
 				if (trimmedName.length < 2) {
 					setNewTagNameError('Tag name needs at least two characters')
@@ -65,23 +63,23 @@ const FormCard = (props) => {
 	const addNewTag = (tagElem) => {
 		setFormData((prevData) => ({
 			...prevData,
-			collections: [...prevData.collections, tagElem],
+			tags: [...prevData.tags, tagElem],
 		}))
 	}
 
 	const handleRemoveTag = (tagElem) => {
 		setFormData((prevData) => ({
 			...prevData,
-			collections: [...prevData.collections.filter((elem) => elem._id !== tagElem._id)],
+			tags: [...prevData.tags.filter((elem) => elem._id !== tagElem._id)],
 		}))
 	}
 
 	// filter existing tags
-	// every time a collection is added or removed from card
+	// every time a tag is added or removed from card
 	useEffect(() => {
-		const collectionIds = new Set(formData.collections.map((item) => item._id))
-		setFilteredCollectionsArr(allCollectionsArr.filter((item) => !collectionIds.has(item._id)))
-	}, [formData.collections, allCollectionsArr])
+		const tagIds = new Set(formData.tags.map((item) => item._id))
+		setFilteredTagsArr(allTagsArr.filter((item) => !tagIds.has(item._id)))
+	}, [formData.tags, allTagsArr])
 
 	// Set default color received from the child
 	const handleDropdownInitColor = (initColor) => {
@@ -90,9 +88,9 @@ const FormCard = (props) => {
 
 	// cycle through colors
 	// useEffect(() => {
-	// 	const nextColourIndex = formData.collections?.length % colorsArr.length || 0
+	// 	const nextColourIndex = formData.tags?.length % colorsArr.length || 0
 	// 	setNewTagColor(colorsArr[nextColourIndex].name)
-	// }, [formData.collections])
+	// }, [formData.tags])
 
 	// add new card
 	// update existing card
@@ -110,7 +108,7 @@ const FormCard = (props) => {
 					_id: undefined,
 					content_front: '',
 					content_back: '',
-					collections: [],
+					tags: [],
 				})
 			} else {
 				// update existing card
@@ -119,7 +117,7 @@ const FormCard = (props) => {
 
 				setAllCardsArr((prevCards) => prevCards.map((item) => (item._id === cardId ? updatedCard.data : item)))
 			}
-			fetchCollectionsData()
+			fetchTagsData()
 			onSubmitFunction?.()
 		} catch (err) {
 			console.log('ERROR', err)
@@ -147,9 +145,9 @@ const FormCard = (props) => {
 				</div>
 				<fieldset>
 					<legend>Tags</legend>
-					{formData.collections?.length > 0 ? (
+					{formData.tags?.length > 0 ? (
 						<ul aria-live="polite" className="list-unstyled list-horizontal list-pills">
-							{formData.collections.map((elem) => (
+							{formData.tags.map((elem) => (
 								<li key={elem._id}>
 									<Pill data={elem} type="remove" action={() => handleRemoveTag(elem)} />
 								</li>
@@ -172,9 +170,9 @@ const FormCard = (props) => {
 								aria-invalid={newTagNameError ? true : null}
 								aria-errormessage={`${uniqueId}-new-tag-name-error`}
 							/>
-							{filteredCollectionsArr.length > 0 ? (
+							{filteredTagsArr.length > 0 ? (
 								<ul className="suggestions list-unstyled list-horizontal">
-									{filteredCollectionsArr.map((elem) => (
+									{filteredTagsArr.map((elem) => (
 										<li key={elem._id}>
 											<Pill data={elem} type="add" action={() => addNewTag(elem)} />
 										</li>

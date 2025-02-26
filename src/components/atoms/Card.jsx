@@ -20,9 +20,9 @@ import {
 } from '@phosphor-icons/react'
 
 function Card(props) {
-	const { setAllCardsArr, setFilteredCardsArr, fetchCollectionsData, defaultIconWeight } = useContext(CardsContext)
+	const { setAllCardsArr, setFilteredCardsArr, fetchTagsData, defaultIconWeight } = useContext(CardsContext)
 	const { content_front, content_back } = props.content
-	const collections = props.content.collections.sort(function (a, b) {
+	const tags = props.content.tags.sort(function (a, b) {
 		if (a.name.toLowerCase() < b.name.toLowerCase()) {
 			return -1
 		}
@@ -51,7 +51,7 @@ function Card(props) {
 			const filterId = cardId
 			setAllCardsArr((prevCards) => prevCards.filter((e) => e._id !== filterId))
 			setFilteredCardsArr((prevCards) => prevCards.filter((e) => e._id !== filterId))
-			fetchCollectionsData()
+			fetchTagsData()
 			setDeleteMode(false)
 		} catch (err) {
 			console.log('ERROR', err)
@@ -74,6 +74,12 @@ function Card(props) {
 			document.removeEventListener('focusin', handleClickOutside)
 		}
 	}, [isMenuExpanded])
+
+	// handle known answer
+
+	const handleClickKnown = () => {
+		console.log('I KNEW IT!')
+	}
 
 	return (
 		<>
@@ -128,10 +134,10 @@ function Card(props) {
 						dangerouslySetInnerHTML={{ __html: md.render(content_front) }}
 						onClick={() => setIsFlipped(!isFlipped)}
 					/>
-					{collections?.length > 0 ? (
+					{tags?.length > 0 ? (
 						<footer>
 							<ul className="list-unstyled list-horizontal">
-								{collections.map((elem) => (
+								{tags.map((elem) => (
 									<li key={`${uniqueId}-${elem._id}`}>
 										<Pill data={elem} />
 									</li>
@@ -187,7 +193,7 @@ function Card(props) {
 						<button className="btn-icon btn-danger" aria-label="I didn’t know this answer">
 							<IconX />
 						</button>
-						<button className="btn-icon btn-success" aria-label="I knew this answer">
+						<button className="btn-icon btn-success" aria-label="I knew this answer" onClick={handleClickKnown}>
 							<IconCheck />
 						</button>
 					</footer>
