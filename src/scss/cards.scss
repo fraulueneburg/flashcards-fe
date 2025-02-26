@@ -42,6 +42,10 @@
 	}
 	.back {
 		transform: rotateY(180deg);
+
+		form & {
+			transform: none;
+		}
 	}
 	&.flipped {
 		> .front {
@@ -87,6 +91,14 @@
 		ul {
 			padding-left: 1rem;
 			text-align: left;
+
+			li p {
+				margin-bottom: 0;
+			}
+		}
+
+		hr:not(:first-child) {
+			margin-top: 0;
 		}
 
 		code,
