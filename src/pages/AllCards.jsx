@@ -59,6 +59,7 @@ function AllCards() {
 								type="filter"
 								action={() => handleFilter(elem)}
 								classes={filterElem && filterElem._id !== elem._id ? 'inactive' : null}
+								active={filterElem && filterElem._id !== elem._id ? false : true}
 							/>
 						</li>
 					))}

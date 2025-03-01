@@ -1,7 +1,7 @@
 import { X as IconX, Plus as IconPlus } from '@phosphor-icons/react'
 
 export default function Pill(props) {
-	const { type, action } = props
+	const { type, action, active } = props
 	const { name, color, cards } = props.data
 	const classes = props.classes ? `pill ${props.classes}` : `pill`
 	const pillStyle = color ? { backgroundColor: `var(--pico-color-${color})` } : null
@@ -12,7 +12,7 @@ export default function Pill(props) {
 				return <span className="name">{name}</span>
 			case 'filter':
 				return (
-					<button onClick={action}>
+					<button onClick={action} role="switch" aria-checked={active}>
 						<span className="name">{name}</span>
 						<sup className="num">
 							{cards.length}
