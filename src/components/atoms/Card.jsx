@@ -136,7 +136,7 @@ function Card(props) {
 					/>
 					{tags?.length > 0 ? (
 						<footer>
-							<ul className="list-unstyled list-horizontal">
+							<ul className="list-unstyled list-horizontal list-tags">
 								{tags.map((elem) => (
 									<li key={`${uniqueId}-${elem._id}`}>
 										<Pill data={elem} />
@@ -158,16 +158,15 @@ function Card(props) {
 					<nav id={`menu-${uniqueId}`}>
 						<ul>
 							<li>
-								<button className="btn-icon" aria-label="delete item">
-									<IconStats weight={defaultIconWeight} />
-								</button>
-							</li>
-							<li>
 								<button onClick={() => setEditMode(!editMode)} className="btn-icon" aria-label="edit item">
 									<IconEdit weight={defaultIconWeight} />
 								</button>
 							</li>
-
+							<li>
+								<button className="btn-icon" aria-label="delete item">
+									<IconStats weight={defaultIconWeight} />
+								</button>
+							</li>
 							<li>
 								<button onClick={() => setDeleteMode(!deleteMode)} className="btn-icon btn-danger" aria-label="delete item">
 									<IconDelete weight={defaultIconWeight} />
