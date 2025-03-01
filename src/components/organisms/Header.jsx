@@ -15,7 +15,7 @@ function Header() {
 					<ul className="nav-main">
 						<li>
 							<NavLink to="/all-cards" end {...({ isActive }) => (isActive ? 'aria-current="page"' : null)}>
-								All Cards
+								Cards
 							</NavLink>
 						</li>
 						<li>
