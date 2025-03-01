@@ -65,4 +65,13 @@ dialog {
 	form {
 		width: 100%;
 	}
+
+	&:not(.modal-edit):has(.flashcard) {
+		background: transparent none;
+
+		article {
+			background: transparent none;
+			box-shadow: none;
+		}
+	}
 }

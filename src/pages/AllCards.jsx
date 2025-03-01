@@ -79,6 +79,7 @@ function AllCards() {
 			{addCardMode ? (
 				<ModalProvider>
 					<Modal
+						modalClassName="modal-edit"
 						modalIsOpen={addCardMode}
 						onCancel={() => setAddCardMode(false)}
 						description={
