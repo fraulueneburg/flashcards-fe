@@ -2,7 +2,7 @@ import MarkdownIt from 'markdown-it'
 import { useId } from 'react'
 
 const MarkdownEditor = ({ label, value, onChange, placeholder, className }) => {
-	const md = new MarkdownIt()
+	const md = new MarkdownIt({ html: true, linkify: true })
 	const elementId = useId()
 
 	return (

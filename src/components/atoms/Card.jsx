@@ -31,7 +31,7 @@ function Card(props) {
 		}
 		return 0
 	})
-	const md = new MarkdownIt()
+	const md = new MarkdownIt({ html: true, linkify: true })
 	const cardId = props.id || undefined
 	const uniqueId = useId()
 	const sideMenuRef = useRef(null)
