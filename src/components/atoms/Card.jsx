@@ -7,21 +7,21 @@ import Modal from '../organisms/Modal'
 import MarkdownIt from 'markdown-it'
 import FormCard from '../molecules/FormCard'
 import Pill from './Pill'
+// import sortByName from '../../context/utils/sortByName'
 
 import {
 	ArrowClockwise as IconRotateCw,
 	ArrowCounterClockwise as IconRotateCcw,
-	Check as IconCheck,
 	ChartLine as IconStats,
 	DotsThreeVertical as IconMore,
 	Pencil as IconEdit,
 	Trash as IconDelete,
-	X as IconX,
 } from '@phosphor-icons/react'
 
 function Card(props) {
 	const { setAllCardsArr, setFilteredCardsArr, fetchTagsData, defaultIconWeight } = useContext(CardsContext)
 	const { content_front, content_back } = props.content
+	//const tags = sortByName(props.content.tags)
 	const tags = props.content.tags.sort(function (a, b) {
 		if (a.name.toLowerCase() < b.name.toLowerCase()) {
 			return -1
@@ -40,6 +40,12 @@ function Card(props) {
 	const [isMenuExpanded, setIsMenuExpanded] = useState(false)
 	const [editMode, setEditMode] = useState(false)
 	const [deleteMode, setDeleteMode] = useState(false)
+
+	// flip if card id changes
+
+	useEffect(() => {
+		setIsFlipped(false)
+	}, [cardId])
 
 	// delete card
 
@@ -74,12 +80,6 @@ function Card(props) {
 			document.removeEventListener('focusin', handleClickOutside)
 		}
 	}, [isMenuExpanded])
-
-	// handle known answer
-
-	const handleClickKnown = () => {
-		console.log('I KNEW IT!')
-	}
 
 	return (
 		<>
@@ -188,14 +188,6 @@ function Card(props) {
 						dangerouslySetInnerHTML={{ __html: md.render(content_back) }}
 						onClick={() => setIsFlipped(!isFlipped)}
 					/>
-					<footer>
-						<button className="btn-icon btn-danger" aria-label="I didn’t know this answer">
-							<IconX />
-						</button>
-						<button className="btn-icon btn-success" aria-label="I knew this answer" onClick={handleClickKnown}>
-							<IconCheck />
-						</button>
-					</footer>
 				</section>
 			</article>
 		</>
