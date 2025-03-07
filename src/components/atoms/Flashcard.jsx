@@ -7,7 +7,7 @@ import Modal from '../organisms/Modal'
 import MarkdownIt from 'markdown-it'
 import FormCard from '../molecules/FormCard'
 import Pill from './Pill'
-// import sortByName from '../../context/utils/sortByName'
+import sortByName from '../../context/utils/sortByName'
 
 import {
 	ArrowClockwise as IconRotateCw,
@@ -18,19 +18,11 @@ import {
 	Trash as IconDelete,
 } from '@phosphor-icons/react'
 
-function Card(props) {
+function Flashcard(props) {
 	const { setAllCardsArr, setFilteredCardsArr, fetchTagsData, defaultIconWeight } = useContext(CardsContext)
-	const { content_front, content_back } = props.content
-	//const tags = sortByName(props.content.tags)
-	const tags = props.content.tags.sort(function (a, b) {
-		if (a.name.toLowerCase() < b.name.toLowerCase()) {
-			return -1
-		}
-		if (a.name.toLowerCase() > b.name.toLowerCase()) {
-			return 1
-		}
-		return 0
-	})
+	const { content_front, content_back, difficult: isDifficult } = props.content
+
+	const tags = sortByName(props.content.tags)
 	const md = new MarkdownIt({ html: true, linkify: true })
 	const cardId = props.id || undefined
 	const uniqueId = useId()
@@ -127,7 +119,7 @@ function Card(props) {
 					/>
 				</ModalProvider>
 			) : null}
-			<article className={isFlipped ? 'flashcard flipped' : 'flashcard'}>
+			<article className={`flashcard${isFlipped ? ' flipped' : ''}${isDifficult ? ' difficult' : ''}`}>
 				<section className="front">
 					<div
 						className="content"
@@ -142,6 +134,11 @@ function Card(props) {
 										<Pill data={elem} />
 									</li>
 								))}
+								{isDifficult ? (
+									<li>
+										<Pill data={{ type: 'default', name: '⚡️' }} />
+									</li>
+								) : null}
 							</ul>
 						</footer>
 					) : null}
@@ -194,4 +191,4 @@ function Card(props) {
 	)
 }
 
-export default Card
+export default Flashcard

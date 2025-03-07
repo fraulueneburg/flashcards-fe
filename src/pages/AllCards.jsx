@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Card from '../components/atoms/Card'
+import Flashcard from '../components/atoms/Flashcard'
 import FormCard from '../components/molecules/FormCard'
 import Pill from '../components/atoms/Pill'
 import { Plus as IconPlus } from '@phosphor-icons/react'
@@ -71,7 +71,7 @@ function AllCards() {
 				<ul className="list-cards">
 					{filteredCardsArr.map((elem) => (
 						<li key={elem._id}>
-							<Card id={elem._id} content={elem} />
+							<Flashcard id={elem._id} content={elem} />
 						</li>
 					))}
 				</ul>
