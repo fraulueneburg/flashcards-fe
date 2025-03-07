@@ -29,3 +29,14 @@
 		width: 0.8em;
 	}
 }
+
+.btn-close {
+	background-color: transparent;
+	border: none;
+	margin: 0 !important;
+	position: absolute;
+	height: 3rem !important;
+	right: 3px;
+	top: 3px;
+	width: 3rem !important;
+}

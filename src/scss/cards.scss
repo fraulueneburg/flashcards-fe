@@ -1,6 +1,6 @@
 .flashcard {
 	background-color: transparent;
-	height: 11lh;
+	height: 12lh;
 	margin-bottom: var(--pico-spacing);
 	padding: 0;
 	position: relative;
@@ -79,7 +79,7 @@
 		display: grid;
 		min-height: 100%;
 		overflow-y: scroll;
-		padding: 1rem 1rem 0;
+		padding: 1rem;
 
 		> *:last-child {
 			margin-bottom: 0;
@@ -100,6 +100,15 @@
 
 		h1 {
 			--pico-font-size: 1rem;
+		}
+
+		h2 {
+			--pico-font-size: 0.9rem;
+			margin-top: 1.5rem;
+		}
+
+		h3 {
+			--pico-font-size: 0.8rem;
 		}
 
 		p,
@@ -141,6 +150,37 @@
 		display: block;
 	}
 
+	.stats {
+		background-color: var(--pico-card-background-color);
+		border: 2px solid var(--pico-form-element-border-color);
+		border-radius: var(--pico-border-radius);
+		display: block;
+		height: 100%;
+		overflow-y: scroll;
+		position: absolute;
+		width: 100%;
+		z-index: 20;
+
+		.btn-close {
+			display: block;
+			left: auto;
+			margin: 0 0 0 auto !important;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		.content {
+			display: flex;
+			min-height: 100%;
+			padding: 1rem;
+			text-align: center;
+			margin: auto;
+			flex-direction: column;
+			justify-content: center;
+		}
+	}
+
 	&.flipped aside {
 		opacity: 0;
 		transition: opacity 0.5s ease;
@@ -163,7 +203,7 @@
 		opacity: 1;
 		transition: opacity 0.5s 0.3s ease;
 
-		> button:first-child {
+		> button {
 			&:not(:focus, :focus-visible, :focus-within) {
 				background-color: transparent;
 				border-color: transparent;

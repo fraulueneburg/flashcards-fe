@@ -1,5 +1,5 @@
 const sortByName = (arr) => {
-	arr.sort(function (a, b) {
+	return arr.sort(function (a, b) {
 		if (a.name.toLowerCase() < b.name.toLowerCase()) {
 			return -1
 		}

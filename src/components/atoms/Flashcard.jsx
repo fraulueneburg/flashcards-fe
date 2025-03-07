@@ -8,7 +8,7 @@ import MarkdownIt from 'markdown-it'
 import FormCard from '../molecules/FormCard'
 import Pill from './Pill'
 import sortByName from '../../context/utils/sortByName'
-
+import { differenceInCalendarDays, format, formatRelative, parseISO } from 'date-fns'
 import {
 	ArrowClockwise as IconRotateCw,
 	ArrowCounterClockwise as IconRotateCcw,
@@ -16,24 +16,41 @@ import {
 	DotsThreeVertical as IconMore,
 	Pencil as IconEdit,
 	Trash as IconDelete,
+	X as IconX,
 } from '@phosphor-icons/react'
 
 function Flashcard(props) {
 	const { setAllCardsArr, setFilteredCardsArr, fetchTagsData, defaultIconWeight } = useContext(CardsContext)
-	const { content_front, content_back, difficult: isDifficult } = props.content
-
+	const {
+		content_front,
+		content_back,
+		difficult: isDifficult,
+		retired: isRetired,
+		reviewDate,
+		lastReviewDate,
+		createdAt,
+		box,
+	} = props.content
 	const tags = sortByName(props.content.tags)
+	const repeatIntervals = [1, 2, 7, 14, 28]
+
 	const md = new MarkdownIt({ html: true, linkify: true })
 	const cardId = props.id || undefined
 	const uniqueId = useId()
 	const sideMenuRef = useRef(null)
+	const today = new Date()
+	const formatDate = (dateString) => {
+		const date = parseISO(dateString)
+		return format(date, "do MMMM yyyy 'at' HH:mm")
+	}
 
 	const [isFlipped, setIsFlipped] = useState(false)
 	const [isMenuExpanded, setIsMenuExpanded] = useState(false)
 	const [editMode, setEditMode] = useState(false)
 	const [deleteMode, setDeleteMode] = useState(false)
+	const [showStats, setShowStats] = useState(false)
 
-	// flip if card id changes
+	// flip to front if id changes
 
 	useEffect(() => {
 		setIsFlipped(false)
@@ -98,8 +115,7 @@ function Flashcard(props) {
 						}
 					/>
 				</ModalProvider>
-			) : null}
-			{deleteMode ? (
+			) : deleteMode ? (
 				<ModalProvider>
 					<Modal
 						modalClassName="modal-delete"
@@ -119,6 +135,7 @@ function Flashcard(props) {
 					/>
 				</ModalProvider>
 			) : null}
+
 			<article className={`flashcard${isFlipped ? ' flipped' : ''}${isDifficult ? ' difficult' : ''}`}>
 				<section className="front">
 					<div
@@ -145,6 +162,13 @@ function Flashcard(props) {
 				</section>
 				<aside ref={sideMenuRef}>
 					<button
+						onClick={() => setIsFlipped(!isFlipped)}
+						className="btn-icon btn-flip secondary"
+						aria-label="flip card"
+						aria-pressed={isFlipped}>
+						{isFlipped ? <IconRotateCcw /> : <IconRotateCw />}
+					</button>
+					<button
 						className="btn-icon secondary"
 						aria-label="open card actions"
 						aria-expanded={isMenuExpanded}
@@ -160,7 +184,7 @@ function Flashcard(props) {
 								</button>
 							</li>
 							<li>
-								<button className="btn-icon" aria-label="delete item">
+								<button onClick={() => setShowStats(true)} className="btn-icon" aria-label="see statistics">
 									<IconStats weight={defaultIconWeight} />
 								</button>
 							</li>
@@ -171,13 +195,6 @@ function Flashcard(props) {
 							</li>
 						</ul>
 					</nav>
-					<button
-						onClick={() => setIsFlipped(!isFlipped)}
-						className="btn-icon btn-flip secondary"
-						aria-label="flip card"
-						aria-pressed={isFlipped}>
-						{isFlipped ? <IconRotateCcw /> : <IconRotateCw />}
-					</button>
 				</aside>
 				<section className="back">
 					<div
@@ -186,6 +203,44 @@ function Flashcard(props) {
 						onClick={() => setIsFlipped(!isFlipped)}
 					/>
 				</section>
+				{showStats ? (
+					<section className="stats">
+						<button className="btn-close" onClick={() => setShowStats(false)} aria-label="close statistics">
+							<IconX />
+						</button>
+						<div className="content">
+							{isRetired ? (
+								<>
+									<p>
+										<mark>retired card</mark>
+									</p>
+									<p>last review {formatDate(lastReviewDate)}</p>
+								</>
+							) : (
+								<>
+									<p>
+										currently repeating <strong>every {box <= 1 ? 'day' : repeatIntervals[box - 1] + ' days'}</strong>
+									</p>
+									<p>
+										next review{' '}
+										<strong>
+											{differenceInCalendarDays(reviewDate, today) <= 0
+												? 'today'
+												: differenceInCalendarDays(reviewDate, today) === 1
+												? 'tomorrow'
+												: `in  ${differenceInCalendarDays(reviewDate, today)} days`}
+										</strong>
+										<br />
+										last review {formatDate(lastReviewDate)}
+									</p>
+								</>
+							)}
+							<p>
+								<strong>created</strong> {formatRelative(createdAt, today, { weekStartsOn: 1 })}
+							</p>
+						</div>
+					</section>
+				) : null}
 			</article>
 		</>
 	)
