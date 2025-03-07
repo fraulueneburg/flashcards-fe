@@ -14,9 +14,8 @@ export default function Pill(props) {
 				return (
 					<button onClick={action} role="switch" aria-checked={active}>
 						<span className="name">{name}</span>
-						<sup className="num">
+						<sup className="num" aria-hidden="true">
 							{cards.length}
-							<span className="sr-only">{cards.length > 1 ? 'cards' : 'card'}</span>
 						</sup>
 					</button>
 				)
@@ -32,8 +31,8 @@ export default function Pill(props) {
 			case 'remove':
 				return (
 					<>
-						<span className="name">{name}</span>
 						<button type="button" onClick={action} aria-label={`remove tag ${name}`}>
+							<span className="name">{name}</span>
 							<IconX />
 						</button>
 					</>
