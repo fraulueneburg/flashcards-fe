@@ -14,6 +14,10 @@ More info coming soon. In the meantime, why not [follow me on Linkedin?](https:/
 - 🗂️ use the power of spaced repitition for faster learning
 - ✨ become a genius!
 
+### planned future updates:
+
+- 📚 create custom collections
+
 ## About Me
 
 I’m Wiebke, a Full Stack Web Developer and UI/UX Designer, currently living in Hamburg, Germany. I love working on web apps that are intuitive to use. Usability is a top priority in my work and I am also strongly advocating for (and keep learning about) web accessibility.
