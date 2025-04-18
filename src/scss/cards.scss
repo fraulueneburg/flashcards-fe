@@ -16,7 +16,7 @@
 
 	.front,
 	.back {
-		background: var(--pico-card-background-color) url(../../public/img/bg/dot-grid.webp) repeat top center;
+		background: var(--pico-card-background-color) url(../public/img/bg/dot-grid.webp) repeat top center;
 		background-blend-mode: multiply;
 		border: 2px solid var(--pico-form-element-border-color);
 		border-radius: var(--pico-border-radius);
