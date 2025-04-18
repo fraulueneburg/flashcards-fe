@@ -4,6 +4,11 @@
 	margin-bottom: var(--pico-spacing);
 	padding: 0;
 	position: relative;
+	width: auto;
+
+	dialog h1 + & {
+		width: 18lh;
+	}
 
 	&:has(dialog[open]) {
 		z-index: 20;
