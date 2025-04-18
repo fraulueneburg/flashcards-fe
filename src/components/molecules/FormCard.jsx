@@ -2,10 +2,10 @@ import { useState, useEffect, useContext, useId } from 'react'
 import { API_URL } from '../../config'
 import { CardsContext } from '../../context/cards.context'
 import axios from 'axios'
-import MarkdownEditor from '../atoms/MarkdownEditor'
 import DropdownColor from '../atoms/DropdownColor'
 import Pill from '../atoms/Pill'
 import { nanoid } from 'nanoid'
+import Tiptap from '../atoms/TipTap'
 
 const FormCard = (props) => {
 	const { id, onSubmitFunction } = props
@@ -124,11 +124,27 @@ const FormCard = (props) => {
 		}
 	}
 
+	const handleTipTap = (content) => {
+		// console.log(content)
+	}
+
 	return (
 		<>
 			<form onSubmit={handleSubmit}>
 				<div className="grid">
-					<MarkdownEditor
+					<Tiptap
+						content={formData.content_front}
+						customClass="front"
+						label="Front"
+						onUpdate={(elem) => setFormData({ ...formData, content_front: elem })}
+					/>
+					<Tiptap
+						content={formData.content_back}
+						customClass="back"
+						label="Back"
+						onUpdate={(elem) => setFormData({ ...formData, content_back: elem })}
+					/>
+					{/* <MarkdownEditor
 						label="Front"
 						className="front"
 						value={formData.content_front}
@@ -141,7 +157,7 @@ const FormCard = (props) => {
 						value={formData.content_back}
 						onChange={(elem) => setFormData({ ...formData, content_back: elem })}
 						placeholder="Enter back content (markdown)"
-					/>
+					/> */}
 				</div>
 				<fieldset>
 					<legend>Tags</legend>

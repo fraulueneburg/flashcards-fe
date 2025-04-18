@@ -7,6 +7,28 @@ h6 {
 	--pico-line-height: 1.35;
 }
 
+ol,
+ul {
+	padding-left: 1.5rem;
+
+	li {
+		padding-left: 0.25rem;
+
+		> p {
+			margin: 0;
+		}
+	}
+}
+
+ol li {
+	list-style: auto;
+	text-align: left;
+
+	&::marker {
+		font-size: 0.8em;
+	}
+}
+
 ul.list-unstyled {
 	padding: 0;
 	margin: 0;
@@ -25,6 +47,13 @@ ul.list-horizontal {
 code,
 pre {
 	text-align: left;
+
+	p {
+		color: unset !important;
+		font-size: unset !important;
+		margin: 0;
+		padding: 0;
+	}
 }
 
 code,

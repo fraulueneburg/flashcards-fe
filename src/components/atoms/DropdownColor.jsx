@@ -29,11 +29,11 @@ export default function DropdownColor(props) {
 
 	// Close list on esc or when focus moves outside
 
-	const handleClickOutside = (event) => {
-		if (fieldsetRef.current && !fieldsetRef.current.contains(event.target)) {
-			setIsListOpen(false)
-		}
-	}
+	// const handleClickOutside = (event) => {
+	// 	if (fieldsetRef.current && !fieldsetRef.current.contains(event.target)) {
+	// 		setIsListOpen(false)
+	// 	}
+	// }
 	const handleKeyDown = (event) => {
 		if (event.key === 'Escape' && isListOpen) {
 			setIsListOpen(false)
@@ -41,13 +41,13 @@ export default function DropdownColor(props) {
 		}
 	}
 	useEffect(() => {
-		document.addEventListener('mousedown', handleClickOutside)
-		document.addEventListener('focusin', handleClickOutside)
+		// document.addEventListener('mousedown', handleClickOutside)
+		// document.addEventListener('focusin', handleClickOutside)
 		document.addEventListener('keydown', handleKeyDown)
 
 		return () => {
-			document.removeEventListener('mousedown', handleClickOutside)
-			document.removeEventListener('focusin', handleClickOutside)
+			// document.removeEventListener('mousedown', handleClickOutside)
+			// document.removeEventListener('focusin', handleClickOutside)
 			document.removeEventListener('keydown', handleKeyDown)
 		}
 	}, [isListOpen, setIsListOpen])
