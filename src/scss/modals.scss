@@ -1,53 +1,70 @@
 /*----- DIALOGS -----*/
 
 dialog {
+	max-width: none;
+	max-height: none;
+	height: 100dvh;
+	width: 100dvw;
+
 	> article {
-		max-width: 1200px;
-		position: relative;
-	}
-
-	header,
-	footer {
-		background: transparent none;
-	}
-
-	header {
-		border: none;
-		margin-bottom: 0;
-		padding-top: 1rem;
-		text-align: center;
-		width: calc(100% + var(--block-spacing-horizontal) * 2);
-
-		h1,
-		h2,
-		h3 {
-			margin: 0 auto 0;
-			width: calc(100% - 80px);
-		}
-	}
-
-	section {
+		height: 100%;
 		margin: 0;
-		padding: 1rem 0;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1rem;
+		max-height: none;
+		max-width: none;
+		padding: 0 2rem;
+		position: relative;
+		width: 100%;
+
+		> header,
+		> footer {
+			background: transparent none;
+			width: 100%;
+		}
+
+		> header {
+			border: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			width: 100%;
+
+			h1,
+			h2,
+			h3 {
+				margin: 0 auto 0;
+				width: calc(100% - 80px);
+			}
+
+			:is(a, button)[rel='prev'] {
+				float: none;
+				position: static;
+				justify-self: end;
+			}
+		}
+
+		> footer {
+			align-items: center;
+			border: none;
+			display: flex;
+			flex-direction: row;
+			gap: 0.5rem;
+			justify-content: center;
+			margin-top: 0;
+		}
+
+		> section {
+			margin: 0;
+			padding: 1rem 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1rem;
+		}
 	}
 
 	img {
 		max-width: 250px;
 		width: auto;
-	}
-
-	footer {
-		align-items: center;
-		border: none;
-		display: flex;
-		flex-direction: row;
-		gap: 0.5rem;
-		justify-content: center;
-		margin-top: 0;
 	}
 
 	select {
