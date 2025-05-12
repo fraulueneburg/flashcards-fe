@@ -36,6 +36,8 @@ dialog {
 			}
 
 			:is(a, button)[rel='prev'] {
+				background-color: var(--pico-card-background-color);
+				border-radius: 50%;
 				float: none;
 				position: static;
 				justify-self: end;
