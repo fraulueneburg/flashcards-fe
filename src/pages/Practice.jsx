@@ -8,6 +8,7 @@ import Flashcard from '../components/atoms/Flashcard'
 import Pill from '../components/atoms/Pill'
 
 import { Check as IconCheck, X as IconX } from '@phosphor-icons/react'
+import Status from '../components/atoms/Status'
 
 function Practice() {
 	const { allCardsArr } = useContext(CardsContext)
@@ -145,7 +146,7 @@ function Practice() {
 						description={
 							<>
 								<h1>
-									{currCardPos + 1} / {practiceArr.length}{' '}
+									<Status label="card" currNum={currCardPos + 1} total={practiceArr.length} />
 								</h1>
 								<Flashcard id={currCard._id} content={currCard} />
 								<footer>

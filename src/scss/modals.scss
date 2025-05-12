@@ -59,6 +59,12 @@ dialog {
 			flex-direction: column;
 			align-items: center;
 			gap: 1rem;
+
+			> h1 {
+				margin-bottom: 0;
+				width: 100%;
+				text-align: center;
+			}
 		}
 	}
 

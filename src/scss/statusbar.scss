@@ -1,0 +1,29 @@
+.status-bar {
+	display: flex;
+	gap: 1rem;
+	grid-template-columns: auto, 1fr;
+	margin: 0 auto;
+	padding: 0 1rem;
+	max-width: calc(567px + 2rem);
+	flex-direction: row-reverse;
+	align-items: center;
+
+	.bar-container {
+		background-color: var(--pico-card-background-color);
+		border-radius: 0.25rem;
+		height: 0.5rem;
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.label {
+		font-size: 1.2rem;
+		white-space: nowrap;
+	}
+
+	.bar {
+		background-color: var(--color-success);
+		border-radius: 0.25rem;
+		height: 100%;
+	}
+}
