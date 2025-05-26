@@ -16,6 +16,10 @@ ul.list-unstyled {
 	}
 }
 
+ol li {
+	list-style: decimal;
+}
+
 ul.list-horizontal {
 	display: flex;
 	flex-wrap: wrap;
