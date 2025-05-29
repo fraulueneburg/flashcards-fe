@@ -7,7 +7,7 @@ function Header() {
 				<nav>
 					<ul>
 						<li>
-							<NavLink className="logo" to="/all-cards" end {...({ isActive }) => (isActive ? 'aria-current="page"' : null)}>
+							<NavLink className="logo" to="/cards" end {...({ isActive }) => (isActive ? 'aria-current="page"' : null)}>
 								<strong>
 									<span aria-hidden="true">⚡️</span> Flashcards
 								</strong>
@@ -16,7 +16,7 @@ function Header() {
 					</ul>
 					<ul className="nav-main">
 						<li>
-							<NavLink to="/all-cards" end {...({ isActive }) => (isActive ? 'aria-current="page"' : null)}>
+							<NavLink to="/cards" end {...({ isActive }) => (isActive ? 'aria-current="page"' : null)}>
 								Cards
 							</NavLink>
 						</li>

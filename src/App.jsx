@@ -26,7 +26,7 @@ function App() {
 						/>
 						<Route path="/profile-deleted" element={<ProfileDeleted />}></Route> */}
 						<Route
-							path="/all-cards"
+							path="/cards"
 							element={
 								<CardsContextWrapper>
 									<AllCards />
