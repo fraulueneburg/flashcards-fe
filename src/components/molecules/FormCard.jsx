@@ -97,10 +97,11 @@ const FormCard = (props) => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
+		const isNewCard = !formData._id
+
 		try {
-			if (!formData._id) {
-				// add new card
-				const response = await axios.post(`${API_URL}/cards/add`, formData)
+			if (isNewCard) {
+				const response = await axios.post(`${API_URL}/cards`, formData)
 				const newCard = response.data
 
 				setAllCardsArr((prevArr) => [newCard, ...prevArr])
@@ -113,7 +114,7 @@ const FormCard = (props) => {
 			} else {
 				// update existing card
 				const cardId = formData._id
-				const updatedCard = await axios.post(`${API_URL}/cards/${cardId}/update`, formData)
+				const updatedCard = await axios.put(`${API_URL}/cards/${cardId}`, formData)
 
 				setAllCardsArr((prevCards) => prevCards.map((item) => (item._id === cardId ? updatedCard.data : item)))
 			}

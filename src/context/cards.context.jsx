@@ -12,7 +12,7 @@ const CardsContextWrapper = ({ children }) => {
 
 	const fetchTagsData = async () => {
 		try {
-			const resp = await axios.get(`${API_URL}/tags/all`)
+			const resp = await axios.get(`${API_URL}/tags`)
 			setAllTagsArr(
 				resp.data.sort(function (a, b) {
 					if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -35,7 +35,7 @@ const CardsContextWrapper = ({ children }) => {
 
 		const fetchCardData = async () => {
 			try {
-				const resp = await axios.get(`${API_URL}/cards/all`)
+				const resp = await axios.get(`${API_URL}/cards`)
 				const data = resp.data.reverse()
 				setAllCardsArr(data)
 				setFilteredCardsArr(data)

@@ -62,7 +62,7 @@ function Flashcard(props) {
 		e.preventDefault()
 
 		try {
-			await axios.delete(`${API_URL}/cards/${cardId}/delete`)
+			await axios.delete(`${API_URL}/cards/${cardId}`)
 			const filterId = cardId
 			setAllCardsArr((prevCards) => prevCards.filter((e) => e._id !== filterId))
 			setFilteredCardsArr((prevCards) => prevCards.filter((e) => e._id !== filterId))

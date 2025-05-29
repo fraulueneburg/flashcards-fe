@@ -15,7 +15,7 @@ function Practice() {
 	const [practiceMode, setPracticeMode] = useState(false)
 
 	const [todaysCardsArr, setTodaysCardsArr] = useState([])
-	const [difficultArr, setDifficultArr] = useState([])
+	const [difficultCardsArr, setDifficultCardsArr] = useState([])
 	const [retiredArr, setRetiredArr] = useState([])
 	const [practiceArr, setPracticeArr] = useState([])
 
@@ -25,7 +25,7 @@ function Practice() {
 	useEffect(() => {
 		const today = new Date()
 		setTodaysCardsArr(allCardsArr.filter((elem) => elem.reviewDate <= today.toISOString() && elem.retired === false))
-		setDifficultArr(allCardsArr.filter((elem) => elem.difficult === true))
+		setDifficultCardsArr(allCardsArr.filter((elem) => elem.difficult === true))
 		setRetiredArr(allCardsArr.filter((elem) => elem.retired === true))
 	}, [allCardsArr])
 
@@ -43,25 +43,20 @@ function Practice() {
 		setPracticeArr(arr)
 	}
 
-	const handleAnswer = async (answer) => {
+	const handleAnswer = async (isCorrectAnswer) => {
+		const isLastCard = currCardPos === practiceArr.length - 1
+
 		try {
-			const updatedCard = await axios.post(`${API_URL}/cards/${currCard._id}/answer/${answer}`)
-
-			// find card in allCardsArr
-			// update content
-			// if answer == right => move card to end of array
-
-			if (answer === 'right') {
+			const updatedCard = await axios.patch(`${API_URL}/cards/${currCard._id}/review`, {
+				isCorrectAnswer: isCorrectAnswer,
+			})
+			if (isCorrectAnswer) {
+				// if answer == right => move card to end of array
 			}
-
-			// move to next card / end practice
-			const anyCardsLeft = currCardPos < practiceArr.length - 1
-			anyCardsLeft ? setCurrCardPos((prev) => prev + 1) : setPracticeMode(false)
-
-			// add to difficult array
-			if (answer === 'wrong') {
-				setDifficultArr((prev) => [...prev, updatedCard.data])
+			if (!isCorrectAnswer) {
+				setDifficultCardsArr((prev) => [...prev, updatedCard.data])
 			}
+			isLastCard ? setPracticeMode(false) : setCurrCardPos((prev) => prev + 1)
 		} catch (error) {
 			console.error('Error reviewing flashcard:', error)
 		}
@@ -85,12 +80,12 @@ function Practice() {
 						</button>
 					</div>
 					<div>
-						<h2>{difficultArr.length} ⚡️</h2>
+						<h2>{difficultCardsArr.length} ⚡️</h2>
 						<p>difficult cards</p>
-						<button onClick={() => handleStartPractice(difficultArr)} disabled={difficultArr.length <= 0}>
+						<button onClick={() => handleStartPractice(difficultCardsArr)} disabled={difficultCardsArr.length <= 0}>
 							practice
 						</button>
-						<button onClick={() => handleSeeCards(difficultArr)} disabled={difficultArr.length <= 0}>
+						<button onClick={() => handleSeeCards(difficultCardsArr)} disabled={difficultCardsArr.length <= 0}>
 							see cards
 						</button>
 					</div>
@@ -152,13 +147,13 @@ function Practice() {
 								<footer>
 									<button
 										className="btn-icon btn-danger"
-										onClick={() => handleAnswer('wrong')}
+										onClick={() => handleAnswer(false)}
 										aria-label="I didn’t know this answer">
 										<IconX />
 									</button>
 									<button
 										className="btn-icon btn-success"
-										onClick={() => handleAnswer('right')}
+										onClick={() => handleAnswer(true)}
 										aria-label="I knew this answer">
 										<IconCheck />
 									</button>
